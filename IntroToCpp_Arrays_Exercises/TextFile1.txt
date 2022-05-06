@@ -1,0 +1,68 @@
+
+
+
+
+
+/*
+procedure binarySearch( A = list of sortable items , K = item to look for )
+.
+.    L = 0
+.    R = length of A - 1
+.    while L less or equal to R
+.    .
+.    .   M = integer((L + R) / 2)
+.    .   if A[M] == K then
+.    .   .   return M
+.    .   .
+.    .   if A[M] < K then
+.    .   .   L = M + 1
+.    .   .
+.    .   if A[M] > K then
+.    .   .   R = M – 1
+.    .
+.    end while
+.    return NotFound
+.
+end procedure*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	std::cout << searchInt << std::endl;
+	std::cout << arr << std::endl;
+	std::cout << (int)*(arr)+searchInt << std::endl;
+	std::cout << (int)*(arr+searchInt) << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

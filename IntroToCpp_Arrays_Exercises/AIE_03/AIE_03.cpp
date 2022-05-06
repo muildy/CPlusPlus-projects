@@ -42,19 +42,31 @@ void TestResult(const int* result, int* const expected)
 	// This method should:
 	//	- Return: nullptr if the value is not found
 	//  - Return: pointer to the found value in the array
-const int* BinarySearch(const int* arr, int count, int searchVal)
-{
+const int* BinarySearch(const int* arr, int count, int searchVal){
 	// TODO: Implement a binary search
 	// the array is assumed to be sorted
 
+	int start = 0;
+	int end = count - 1;
 
-	for (int i = 0; i < count; i++) {
+	while (start < end) {
+		int searchInt = (start + end) / 2;
+		int checkInt = (int)*(arr)+searchInt;
 
-		std::cout << *arr+i << std::endl;
-
-		if ((int)*(arr + count) == searchVal) {
-			return arr + count;
+		if (checkInt == searchVal) {
+			return arr + searchInt;
+		}
+		else if (checkInt < searchVal) {
+			start = searchInt + 1;
+		}
+		else if (checkInt > searchVal) {
+			start = searchInt - 1;
 		}
 	}
+	
+
 	return nullptr;
 }
+
+
+
