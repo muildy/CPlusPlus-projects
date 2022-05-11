@@ -17,9 +17,9 @@ int main(int argc, char** argv)
 
 	TestResult( BinarySearch(arr1, NUM_ITEMS, 9),  &arr1[4]   );
 	TestResult( BinarySearch(arr1, NUM_ITEMS, 1),  &arr1[0]   );
-	//TestResult( BinarySearch(arr1, NUM_ITEMS, 15), &arr1[7]   );
-	//TestResult( BinarySearch(arr1, NUM_ITEMS, 0),  nullptr    );
-	//TestResult( BinarySearch(arr1, NUM_ITEMS, 16), nullptr    );
+	TestResult( BinarySearch(arr1, NUM_ITEMS, 15), &arr1[7]   );
+	TestResult( BinarySearch(arr1, NUM_ITEMS, 0),  nullptr    );
+	TestResult( BinarySearch(arr1, NUM_ITEMS, 16), nullptr    );
 
 
 	return 0;
@@ -47,20 +47,20 @@ const int* BinarySearch(const int* arr, int count, int searchVal){
 	// the array is assumed to be sorted
 
 	int start = 0;
-	int end = count - 1;
+	int end = count-1;
 
-	while (start < end) {
-		int searchInt = (start + end) / 2;
-		int checkInt = (int)*(arr)+searchInt;
+	while (start <= end) {
+		int searchInt = ((start + end) / 2);	//search int is the position the checked number is in the array
+		int checkInt = (int)*(arr+searchInt);	//is the value that is being checked and compared to the searchVal
 
-		if (checkInt == searchVal) {
-			return arr + searchInt;
+		if (checkInt == searchVal) {			//compares the value being looked at and the desired variable
+			return (arr + searchInt);
 		}
-		else if (checkInt < searchVal) {
+		else if (checkInt < searchVal) {	//
 			start = searchInt + 1;
 		}
 		else if (checkInt > searchVal) {
-			start = searchInt - 1;
+			end = searchInt - 1;
 		}
 	}
 	

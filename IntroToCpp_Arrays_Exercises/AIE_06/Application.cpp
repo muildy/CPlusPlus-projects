@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 
+#include <cstdlib>
 #include <iostream>
 
 Application::Application()
@@ -38,8 +39,13 @@ void Application::Load()
 	// -----------------------------------------------------
 	
 	// write your code here
-	for (int i = 0; i < ROWS * COLS; i++) {
-		std::cout << m_tiles[i];
+	srand(time(NULL));
+
+
+	for (int i = 0; i < ROWS * COLS; i += 20) {
+
+		m_tiles[i] = rand() % 5 + 1;
+		//std::cout << m_tiles[i];
 	}
 	// -----------------------------------------------------
 }
@@ -57,15 +63,18 @@ void Application::Update(float deltaTime)
 
 		// Task 3:
 		// TODO: Calculate row and col index based on the mouse positon
-		int rowIndex = 0; 
-		int colIndex = 0;
+		int rowIndex = mousePos.x/20; 
+		int colIndex = mousePos.y/20;
+		std::cout << "mous x " << rowIndex << "mouse pos y " << colIndex << std::endl;
 
 		// TODO: calculate the index of the tile clicked on based on the row/col index
-		int tileIndex = 0;
-
-		m_tiles[tileIndex] += 1;
-		if (m_tiles[tileIndex] >= 5)
-			m_tiles[tileIndex] = 0;
+		int tileIndex = colIndex + (rowIndex * ROWS);
+		if (tileIndex < ROWS * COLS) {
+			std::cout << "mouse check pass" << std::endl;
+			m_tiles[tileIndex] += 1;
+			if (m_tiles[tileIndex] >= 5)
+				m_tiles[tileIndex] = 0;
+		}
 	}
 }
 
@@ -86,10 +95,19 @@ void Application::Draw()
 	// write your code here
 	float xPos = 0;
 	float yPos = 0;
-	Color color = GetTileColor(1); // pass in the tilevalue
 
-	DrawRectangle(xPos, yPos, m_tileWidth, m_tileHeight, color);
 
+
+	for (int rowIndex = 0; rowIndex < ROWS; rowIndex += m_tileWidth)
+	{
+		for (int colIndex = 0; colIndex < COLS; colIndex += m_tileHeight)
+		{
+			Color color = GetTileColor(m_tiles[colIndex + (rowIndex * ROWS)]); // pass in the tilevalue
+			DrawRectangle(rowIndex, colIndex, m_tileWidth, m_tileHeight, color);
+			std::cout << colIndex + (rowIndex * ROWS) << std::endl;
+		}
+		std::cout << std::endl;
+	}
 	// --------------------------------------------------------------------
 
 	EndDrawing();
