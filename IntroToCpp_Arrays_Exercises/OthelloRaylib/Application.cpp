@@ -71,9 +71,7 @@ void Application::Update(float dt)
 					{
 						CheckWinState();
 					}
-
 				}
-
 			}
 		}
 	}
@@ -179,7 +177,7 @@ bool Application::IsValidMove(char player, int col, int row, const OthelloBoardS
 	// Implement the IsValidMove method
 	// The method should return true if the move is valid
 	if (true) {
-		return;
+		return true;
 	}
 
 

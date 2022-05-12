@@ -5,6 +5,9 @@
 #define RAYGUI_SUPPORT_ICONS
 #include "raygui.h"
 
+#include <iostream>
+using namespace std;
+
 Application::Application()
 {
 
@@ -60,7 +63,7 @@ void Application::Update(float dt)
 {
 	// copy "grid" to "gridBuffer"
 	memcpy(m_gridBuffer, m_grid, sizeof(int) * m_rows * m_cols);
-
+	
 	// update the grid state for this frame
 	for (int i = 0; i < m_rows * m_cols; i++) {
 		m_grid[i] = CalculateTileState(i, m_gridBuffer);
@@ -109,12 +112,39 @@ int Application::CalculateTileState(int index, int* grid)
 	int col = index % m_cols;
 	int row = index / m_cols;
 
-	bool isAlive = grid[index] != 0;
+	int neighbours = 0;
+
+	int arr[9] = {
+	index - m_rows - 1,index - m_rows,index + m_rows + 1,
+	index - 1,	index,	  index + 1,
+	index - m_rows + 1,index + m_rows,index + m_rows + 1
+	};
+
+	for (int i = 0; i < 9; i++) {
+		if (arr[i] < 0 || arr[i] > (m_rows * m_cols)) {
+			continue;
+		}neighbours += grid[arr[i]];
+	}
+
+	cout << neighbours << endl;
+	if ((neighbours < 2) || (neighbours > 3)) { grid[index] = 0; }
+	else { grid[index] = 1; }
+
+	
+
+
+
+	bool isAlive = (grid[index] != 0);
 
 	// Task:
 	// implement the rules for Conway’s game of life, the method should
 	// update the isAlive value based on the rules defined here:
 	// https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life 
 
-	return isAlive;
+	return isAlive;//1 is true and 0 is false
 }
+/*
+index-row-1	index-row	index-row+1
+index-1		index		index+1
+index+row-1	index+row	index+row+1
+*/

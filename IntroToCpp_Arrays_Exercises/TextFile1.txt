@@ -28,9 +28,25 @@ end procedure*/
 
 
 
+	
+	for (int rows = 0; rows < ROWS; rows++){
+		for (int cols = 0; cols < COLS; cols ++){
+			Color color = GetTileColor(cols + (rows * ROWS)); // pass in the tilevalue
+			DrawRectangle(cols* m_tileWidth, rows * m_tileHeight, m_tileWidth, m_tileHeight, color);
+		}
+	}
 
 
-
+		for (int rowIndex = 0; rowIndex < ROWS; rowIndex += m_tileWidth)
+	{
+		for (int colIndex = 0; colIndex < COLS; colIndex += m_tileHeight)
+		{
+			Color color = GetTileColor(m_tiles[colIndex + (rowIndex * ROWS)]); // pass in the tilevalue
+			DrawRectangle(rowIndex, colIndex, m_tileWidth, m_tileHeight, color);
+			std::cout << colIndex + (rowIndex * ROWS) << std::endl;
+		}
+		std::cout << std::endl;
+	}
 
 
 

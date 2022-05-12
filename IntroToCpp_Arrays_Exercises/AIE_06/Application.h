@@ -26,11 +26,11 @@ private:
 	int m_windowWidth = 800;
 	int m_windowHeight = 800;
 
-	static const int ROWS = 40;
-	static const int COLS = 40;
+	static const int ROWS = 40;//40 squares
+	static const int COLS = 40;//by 40 squares
 
 	int m_tiles[ROWS * COLS];
 
-	int m_tileWidth = 20;
+	int m_tileWidth = 20;//size of each one
 	int m_tileHeight = 20;
 };

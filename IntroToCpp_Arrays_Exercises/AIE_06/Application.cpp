@@ -42,9 +42,9 @@ void Application::Load()
 	srand(time(NULL));
 
 
-	for (int i = 0; i < ROWS * COLS; i += 20) {
+	for (int i = 0; i < ROWS * COLS; i ++) {
 
-		m_tiles[i] = rand() % 5 + 1;
+		m_tiles[i] = rand() % 5;
 		//std::cout << m_tiles[i];
 	}
 	// -----------------------------------------------------
@@ -63,14 +63,14 @@ void Application::Update(float deltaTime)
 
 		// Task 3:
 		// TODO: Calculate row and col index based on the mouse positon
-		int rowIndex = mousePos.x/20; 
-		int colIndex = mousePos.y/20;
-		std::cout << "mous x " << rowIndex << "mouse pos y " << colIndex << std::endl;
+		int colIndex = mousePos.x / m_tileWidth;
+		int rowIndex = (int)(mousePos.y / m_tileHeight) * ROWS;
 
 		// TODO: calculate the index of the tile clicked on based on the row/col index
-		int tileIndex = colIndex + (rowIndex * ROWS);
+		int tileIndex =  colIndex + rowIndex;
+
+
 		if (tileIndex < ROWS * COLS) {
-			std::cout << "mouse check pass" << std::endl;
 			m_tiles[tileIndex] += 1;
 			if (m_tiles[tileIndex] >= 5)
 				m_tiles[tileIndex] = 0;
@@ -93,20 +93,18 @@ void Application::Draw()
 	// 	   We have created a helper function you can use "GetTileColor"
 	// --------------------------------------------------------------------
 	// write your code here
+	
 	float xPos = 0;
 	float yPos = 0;
 
 
 
-	for (int rowIndex = 0; rowIndex < ROWS; rowIndex += m_tileWidth)
-	{
-		for (int colIndex = 0; colIndex < COLS; colIndex += m_tileHeight)
-		{
-			Color color = GetTileColor(m_tiles[colIndex + (rowIndex * ROWS)]); // pass in the tilevalue
-			DrawRectangle(rowIndex, colIndex, m_tileWidth, m_tileHeight, color);
-			std::cout << colIndex + (rowIndex * ROWS) << std::endl;
+	
+	for (int rows = 0; rows < ROWS; rows++){
+		for (int cols = 0; cols < COLS; cols ++){
+			Color color = GetTileColor(m_tiles[cols + (rows * ROWS)]); // pass in the tilevalue
+			DrawRectangle(cols* m_tileWidth, rows * m_tileHeight, m_tileWidth, m_tileHeight, color);
 		}
-		std::cout << std::endl;
 	}
 	// --------------------------------------------------------------------
 
@@ -117,7 +115,7 @@ Color Application::GetTileColor(int tileValue)
 {
 	switch (tileValue)
 	{
-	case 0: return WHITE;
+	case 0: return PURPLE;
 	case 1: return RED;
 	case 2: return GREEN;
 	case 3: return BLUE;
