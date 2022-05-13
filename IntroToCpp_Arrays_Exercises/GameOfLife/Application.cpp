@@ -106,6 +106,8 @@ void Application::Draw()
 	EndDrawing();
 }
 
+
+
 int Application::CalculateTileState(int index, int* grid)
 {
 	// Calculate the row/col index
@@ -115,23 +117,24 @@ int Application::CalculateTileState(int index, int* grid)
 	int neighbours = 0;
 
 	int arr[9] = {
-	index - m_rows - 1,index - m_rows,index + m_rows + 1,
-	index - 1,	index,	  index + 1,
-	index - m_rows + 1,index + m_rows,index + m_rows + 1
+	index - m_rows - 1,	index - m_rows,	index + m_rows + 1,
+	index - 1,			index,			index + 1,
+	index - m_rows + 1,	index + m_rows,	index + m_rows + 1
 	};
 
 	for (int i = 0; i < 9; i++) {
-		if (arr[i] < 0 || arr[i] > (m_rows * m_cols)) {
+		//if ( (arr[i] < 0) || (arr[i] > (m_rows * m_cols)) ) {
+		if (  row == 0 || row == m_rows || col == 0 || col == m_cols) {
+			grid[arr[i]] = 0;
 			continue;
 		}neighbours += grid[arr[i]];
 	}
 
-	cout << neighbours << endl;
-	if ((neighbours < 2) || (neighbours > 3)) { grid[index] = 0; }
-	else { grid[index] = 1; }
-
 	
 
+	//cout << neighbours << endl;
+	if ((neighbours < 2) || (neighbours > 3)) { grid[index] = 0; }
+	else if ((neighbours > 2) || (neighbours < 3)) { grid[index] = 1; }
 
 
 	bool isAlive = (grid[index] != 0);
